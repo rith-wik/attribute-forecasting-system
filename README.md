@@ -9,6 +9,8 @@ Predict retail demand at attribute level (size, color, style) by store/region/ch
 - **What-if analysis**: Test scenarios with price changes, promotions, and trend adjustments
 - **Real-time dashboard**: React-based UI with interactive visualizations
 - **Explainable AI**: Feature contribution analysis for each forecast
+- **Dynamic data upload**: Web-based dataset upload with CSV/XLSX support and duplicate detection
+- **Azure Storage integration**: Scalable cloud storage for datasets with local development mode
 
 ## Quick Start
 
@@ -123,9 +125,12 @@ afs/
 - `POST /api/v1/predict` - Generate forecasts with optional what-if scenarios
 - `POST /api/v1/train` - Train/retrain the forecasting model
 
-### Data
+### Data Management
 - `GET /api/v1/trends` - Get social trend data
-- `POST /api/v1/upload` - Upload CSV data files
+- `POST /api/v1/upload` - Upload dataset files (CSV/XLSX) with duplicate detection
+- `GET /api/v1/datasets` - List all uploaded datasets
+- `GET /api/v1/datasets/{type}/preview` - Preview dataset contents
+- `DELETE /api/v1/datasets/{type}` - Delete a dataset
 
 ### Health
 - `GET /health` - Service health check
@@ -328,12 +333,19 @@ make up
 - scikit-learn
 - XGBoost
 - pandas
+- Azure Blob Storage SDK
 
 **Frontend:**
 - React + TypeScript
 - Vite
 - Tailwind CSS
 - Plotly/Chart.js
+
+## Documentation
+
+- **[Data Upload Feature](docs/DATA_UPLOAD_FEATURE.md)** - Guide for uploading and managing datasets
+- **[Azure Storage Setup](docs/AZURE_STORAGE_SETUP.md)** - Configure Azure Blob Storage for production
+- **[API Documentation](http://localhost:8000/docs)** - Interactive API docs (when running locally)
 
 ## License
 

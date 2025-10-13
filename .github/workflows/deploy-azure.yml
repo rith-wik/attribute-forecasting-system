@@ -52,6 +52,10 @@ jobs:
           environmentVariables: |
             DATA_DIR=/app/data/seed
             ARTIFACTS_DIR=/app/artifacts
+            STORAGE_MODE=azure
+            AZURE_STORAGE_CONNECTION_STRING=${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+            AZURE_STORAGE_CONTAINER_NAME=datasets
+            MAX_UPLOAD_SIZE_MB=50
 
   build-and-deploy-web:
     runs-on: ubuntu-latest
