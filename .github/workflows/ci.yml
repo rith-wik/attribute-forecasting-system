@@ -1,0 +1,54 @@
+name: CI - Test and Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    name: Test Backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -e .
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: |
+          cd backend
+          pytest tests/ -v --cov=app --cov-report=term
+
+  build-docker-images:
+    runs-on: ubuntu-latest
+    name: Build Docker Images
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build API Docker image
+        run: |
+          docker build -t afs-api:test ./backend
+
+      - name: Build Web Docker image
+        run: |
+          docker build -t afs-web:test ./frontend
+
+      - name: Test Docker Compose
+        run: |
+          docker compose config
