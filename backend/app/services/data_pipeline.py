@@ -2,31 +2,78 @@ import pandas as pd
 import numpy as np
 from typing import Any, Tuple, Dict, Optional
 from datetime import datetime, timedelta
+import logging
+
 from app.config import settings
+from app.storage.storage_service import get_storage_service
+from app.services.data_processor import get_data_processor
+
+logger = logging.getLogger(__name__)
+
 
 def load_seed() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Load seed data from CSV files"""
+    """Load seed data from storage (uploaded files or seed directory)
+
+    Priority:
+    1. Try loading from storage service (uploaded datasets)
+    2. Fall back to seed directory if files don't exist
+    """
+    storage = get_storage_service()
+    processor = get_data_processor()
     data_dir = settings.data_dir
 
+    # Try loading products
+    products = pd.DataFrame()
     try:
-        products = pd.read_csv(f"{data_dir}/products.csv")
-    except FileNotFoundError:
-        products = pd.DataFrame()
+        if storage.file_exists("products.csv"):
+            content = storage.download_file("products.csv")
+            products = processor.dataframe_from_csv_bytes(content)
+            logger.info(f"Loaded products.csv from storage with {len(products)} rows")
+        else:
+            # Fall back to seed directory
+            products = pd.read_csv(f"{data_dir}/products.csv")
+            logger.info(f"Loaded products.csv from seed directory with {len(products)} rows")
+    except Exception as e:
+        logger.warning(f"Could not load products.csv: {e}")
 
+    # Try loading sales
+    sales = pd.DataFrame()
     try:
-        sales = pd.read_csv(f"{data_dir}/sales.csv", parse_dates=["date"])
-    except FileNotFoundError:
-        sales = pd.DataFrame()
+        if storage.file_exists("sales.csv"):
+            content = storage.download_file("sales.csv")
+            sales = processor.dataframe_from_csv_bytes(content)
+            sales['date'] = pd.to_datetime(sales['date'])
+            logger.info(f"Loaded sales.csv from storage with {len(sales)} rows")
+        else:
+            # Fall back to seed directory
+            sales = pd.read_csv(f"{data_dir}/sales.csv", parse_dates=["date"])
+            logger.info(f"Loaded sales.csv from seed directory with {len(sales)} rows")
+    except Exception as e:
+        logger.warning(f"Could not load sales.csv: {e}")
 
+    # Try loading inventory
+    inv = pd.DataFrame()
     try:
-        inv = pd.read_csv(f"{data_dir}/inventory.csv", parse_dates=["date"])
-    except FileNotFoundError:
-        inv = pd.DataFrame()
+        if storage.file_exists("inventory.csv"):
+            content = storage.download_file("inventory.csv")
+            inv = processor.dataframe_from_csv_bytes(content)
+            inv['date'] = pd.to_datetime(inv['date'])
+            logger.info(f"Loaded inventory.csv from storage with {len(inv)} rows")
+        else:
+            # Fall back to seed directory
+            inv = pd.read_csv(f"{data_dir}/inventory.csv", parse_dates=["date"])
+            logger.info(f"Loaded inventory.csv from seed directory with {len(inv)} rows")
+    except Exception as e:
+        logger.warning(f"Could not load inventory.csv: {e}")
 
+    # Try loading trends (social_trends)
+    trends = pd.DataFrame()
     try:
+        # Note: social_trends is not uploadable via UI yet, only from seed
         trends = pd.read_csv(f"{data_dir}/social_trends.csv", parse_dates=["timestamp"])
-    except FileNotFoundError:
-        trends = pd.DataFrame()
+        logger.info(f"Loaded social_trends.csv from seed directory with {len(trends)} rows")
+    except Exception as e:
+        logger.warning(f"Could not load social_trends.csv: {e}")
 
     return products, sales, inv, trends
 

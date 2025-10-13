@@ -117,6 +117,29 @@ const DataManagement: React.FC = () => {
       <div className="px-4 py-6 sm:px-0">
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Data Management</h1>
 
+        {/* Info Banner */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3 flex-1">
+              <h3 className="text-sm font-medium text-blue-800">How Data is Used</h3>
+              <div className="mt-2 text-sm text-blue-700">
+                <ul className="list-disc list-inside space-y-1">
+                  <li>Uploaded files are stored in <strong>Azure Blob Storage</strong> (or local storage in development)</li>
+                  <li>The forecasting model automatically loads data from uploaded files</li>
+                  <li>Files with status <span className="px-1 bg-green-100 text-green-800 rounded">Active</span> are currently in use</li>
+                  <li>Upload new data to update predictions - duplicates are automatically merged</li>
+                  <li>Training the model will use the latest uploaded datasets</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Upload Section */}
         <div className="bg-white shadow rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Upload Dataset</h2>
@@ -229,10 +252,16 @@ const DataManagement: React.FC = () => {
                       Type
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      File Path
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Size
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Last Modified
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Actions
@@ -247,11 +276,33 @@ const DataManagement: React.FC = () => {
                           {dataset.dataset_type}
                         </span>
                       </td>
+                      <td className="px-6 py-4 text-sm text-gray-900 font-mono">
+                        <div className="flex items-center">
+                          <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <span className="text-xs">{dataset.filename}</span>
+                        </div>
+                        {dataset.metadata.original_filename && (
+                          <div className="text-xs text-gray-500 mt-1 ml-6">
+                            Original: {dataset.metadata.original_filename}
+                          </div>
+                        )}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {dataset.size_mb} MB
+                        {dataset.metadata.total_rows && (
+                          <div className="text-xs text-gray-400">{dataset.metadata.total_rows} rows</div>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatDate(dataset.last_modified)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          Active
+                        </span>
+                        <div className="text-xs text-gray-500 mt-1">In use by model</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                         <button
