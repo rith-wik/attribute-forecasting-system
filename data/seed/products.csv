@@ -1,0 +1,13 @@
+sku,style_code,style_desc,color_name,color_hex,size,category,price,image_path
+A1001,ST-001,Slim Tee,Black,#000000,M,Tops,19.99,images/sample_tee_black.jpg
+A1002,ST-001,Slim Tee,Black,#000000,L,Tops,19.99,images/sample_tee_black.jpg
+A1003,ST-001,Slim Tee,Black,#000000,S,Tops,19.99,images/sample_tee_black.jpg
+A1004,ST-001,Slim Tee,White,#FFFFFF,M,Tops,19.99,images/sample_tee_white.jpg
+A1005,ST-001,Slim Tee,White,#FFFFFF,L,Tops,19.99,images/sample_tee_white.jpg
+A1203,DR-010,Day Dress,Flame,#E4572E,S,Dresses,59.00,images/sample_dress_red.jpg
+A1204,DR-010,Day Dress,Flame,#E4572E,M,Dresses,59.00,images/sample_dress_red.jpg
+A1205,DR-010,Day Dress,Navy,#001F3F,S,Dresses,59.00,images/sample_dress_navy.jpg
+A1206,DR-010,Day Dress,Navy,#001F3F,M,Dresses,59.00,images/sample_dress_navy.jpg
+A1301,CP-020,Cargo Pants,Olive,#808000,30,Bottoms,49.99,images/sample_pants_olive.jpg
+A1302,CP-020,Cargo Pants,Olive,#808000,32,Bottoms,49.99,images/sample_pants_olive.jpg
+A1303,CP-020,Cargo Pants,Black,#000000,30,Bottoms,49.99,images/sample_pants_black.jpg

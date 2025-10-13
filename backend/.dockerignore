@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+tests/
+.coverage
+htmlcov/
+
+# Artifacts (will be volume-mounted)
+artifacts/
+models/
+
+# Documentation
+*.md
+docs/
+
+# Git
+.git/
+.gitignore
