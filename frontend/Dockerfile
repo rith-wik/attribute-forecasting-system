@@ -19,7 +19,7 @@ COPY . /web
 ENV VITE_API_BASE=${VITE_API_BASE}
 
 # Build the application
-RUN npm run build
+RUN npm run build:prod
 
 # Production stage
 FROM node:20-alpine
